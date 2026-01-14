@@ -164,6 +164,9 @@
                 }
 
                 try {
+                    console.log('Syncing entry:', entry);
+                    console.log('Config:', { baseId: config.baseId, tableName: config.tableName });
+                    
                     const res = await fetch(`https://api.airtable.com/v0/${config.baseId}/${config.tableName}`, {
                         method: 'POST',
                         headers: {
@@ -181,19 +184,25 @@
                         })
                     });
 
+                    console.log('Response status:', res.status);
+                    const responseData = await res.json();
+                    console.log('Response data:', responseData);
+
                     if (res.ok) {
                         const updated = timeEntries.map(e => 
                             e.id === entry.id ? { ...e, synced: true, status: 'Done' } : e
                         );
                         setTimeEntries(updated);
                         await storage.set('entries', JSON.stringify(updated));
-                        alert('Synced!');
+                        alert('✅ Synced successfully!');
                     } else {
-                        const err = await res.json();
-                        alert('Failed: ' + (err.error?.message || 'Unknown error'));
+                        // Show detailed error
+                        const errorMsg = responseData.error?.type + ': ' + responseData.error?.message || JSON.stringify(responseData);
+                        alert('❌ Airtable Error:\n\n' + errorMsg);
                     }
                 } catch (e) {
-                    alert('Error: ' + e.message);
+                    console.error('Sync error:', e);
+                    alert('❌ Network Error:\n\n' + e.message + '\n\nCheck console for details (F12)');
                 }
             };
 
