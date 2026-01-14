@@ -326,10 +326,14 @@
                         {/* Logo Header */}
                         <div className="text-center mb-6 pt-4">
                             <img 
-                                src="https://pbs.twimg.com/profile_images/1605616679449534465/fHFL-_QC_400x400.jpg" 
+                                src="Webclip 256x256.png" 
                                 alt="The Design LIVE" 
                                 className="w-24 h-24 mx-auto mb-3 rounded-2xl shadow-lg"
+                                onError={(e) => {e.target.style.display='none'; document.getElementById('logoText').style.display='block'}}
                             />
+                            <div id="logoText" style={{display: 'none', fontSize: '2rem', fontWeight: 'bold', color: '#0c87c5', marginBottom: '1rem'}}>
+                                The Design LIVE
+                            </div>
                             <h1 className="text-2xl font-bold" style={{color: '#091007'}}>Time Tracker</h1>
                         </div>
 
