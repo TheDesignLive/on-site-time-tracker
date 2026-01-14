@@ -4,12 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>On-Site Time Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        :root {
+            --brand-blue: #0c87c5;
+            --brand-red: #df1e1b;
+            --brand-dark: #091007;
+            --brand-light: #f0f0ec;
+        }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--brand-light);
+        }
         * { box-sizing: border-box; }
     </style>
 </head>
@@ -214,35 +228,43 @@
 
             if (showSettings) {
                 return (
-                    <div className="min-h-screen bg-gray-50 p-4">
-                        <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
-                            <h2 className="text-2xl font-bold mb-6">Airtable Settings</h2>
+                    <div style={{minHeight: '100vh', backgroundColor: '#f0f0ec', padding: '1rem'}}>
+                        <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6" style={{border: '2px solid #0c87c5'}}>
+                            <h2 className="text-2xl font-bold mb-6" style={{color: '#091007'}}>Airtable Settings</h2>
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium mb-2">API Key</label>
+                                    <label className="block text-sm font-medium mb-2" style={{color: '#091007'}}>API Key</label>
                                     <input type="password" value={config.apiKey} 
                                         onChange={(e) => setConfig({...config, apiKey: e.target.value})}
-                                        className="w-full px-3 py-2 border rounded" placeholder="pat......" />
+                                        className="w-full px-3 py-2 border rounded" 
+                                        style={{borderColor: '#0c87c5'}}
+                                        placeholder="pat......" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium mb-2">Base ID</label>
+                                    <label className="block text-sm font-medium mb-2" style={{color: '#091007'}}>Base ID</label>
                                     <input type="text" value={config.baseId}
                                         onChange={(e) => setConfig({...config, baseId: e.target.value})}
-                                        className="w-full px-3 py-2 border rounded" placeholder="app......" />
+                                        className="w-full px-3 py-2 border rounded" 
+                                        style={{borderColor: '#0c87c5'}}
+                                        placeholder="app......" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium mb-2">Table Name</label>
+                                    <label className="block text-sm font-medium mb-2" style={{color: '#091007'}}>Table Name</label>
                                     <input type="text" value={config.tableName}
                                         onChange={(e) => setConfig({...config, tableName: e.target.value})}
-                                        className="w-full px-3 py-2 border rounded" placeholder="Time Entries" />
+                                        className="w-full px-3 py-2 border rounded" 
+                                        style={{borderColor: '#0c87c5'}}
+                                        placeholder="Time Entries" />
                                 </div>
                                 <div className="flex gap-2 pt-4">
                                     <button onClick={saveSettings}
-                                        className="flex-1 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+                                        className="flex-1 text-white py-2 px-4 rounded font-semibold"
+                                        style={{backgroundColor: '#0c87c5'}}>
                                         Save
                                     </button>
                                     <button onClick={() => setShowSettings(false)}
-                                        className="flex-1 bg-gray-200 py-2 px-4 rounded hover:bg-gray-300">
+                                        className="flex-1 py-2 px-4 rounded font-semibold"
+                                        style={{backgroundColor: '#f0f0ec', color: '#091007'}}>
                                         Cancel
                                     </button>
                                 </div>
@@ -254,36 +276,38 @@
 
             if (showHistory) {
                 return (
-                    <div className="min-h-screen bg-gray-50 p-4">
-                        <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+                    <div style={{minHeight: '100vh', backgroundColor: '#f0f0ec', padding: '1rem'}}>
+                        <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6" style={{border: '2px solid #0c87c5'}}>
                             <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-2xl font-bold">Time Entries</h2>
-                                <button onClick={() => setShowHistory(false)} className="text-2xl">✕</button>
+                                <h2 className="text-2xl font-bold" style={{color: '#091007'}}>Time Entries</h2>
+                                <button onClick={() => setShowHistory(false)} className="text-2xl" style={{color: '#091007'}}>✕</button>
                             </div>
                             <div className="space-y-3">
                                 {timeEntries.length === 0 ? (
-                                    <p className="text-gray-500 text-center py-8">No entries yet</p>
+                                    <p className="text-center py-8" style={{color: '#091007', opacity: 0.5}}>No entries yet</p>
                                 ) : (
                                     [...timeEntries].reverse().map((entry) => (
-                                        <div key={entry.id} className="border rounded-lg p-4">
+                                        <div key={entry.id} className="border rounded-lg p-4" style={{borderColor: '#0c87c5'}}>
                                             <div className="flex justify-between mb-2">
                                                 <div>
-                                                    <p className="font-semibold">{entry.job}</p>
-                                                    <p className="text-sm text-gray-600">{entry.date}</p>
+                                                    <p className="font-semibold" style={{color: '#091007'}}>{entry.job}</p>
+                                                    <p className="text-sm" style={{color: '#091007', opacity: 0.7}}>{entry.date}</p>
                                                 </div>
-                                                <span className={`px-2 py-1 rounded text-xs ${
-                                                    entry.synced ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800'
-                                                }`}>
+                                                <span className="px-2 py-1 rounded text-xs font-semibold" style={{
+                                                    backgroundColor: entry.synced ? '#d4edda' : '#fff3cd',
+                                                    color: entry.synced ? '#155724' : '#856404'
+                                                }}>
                                                     {entry.synced ? 'Synced' : entry.status}
                                                 </span>
                                             </div>
-                                            <div className="text-sm text-gray-600 space-y-1">
+                                            <div className="text-sm space-y-1" style={{color: '#091007', opacity: 0.7}}>
                                                 <p>{entry.startTime} - {entry.endTime}</p>
                                                 <p className="font-semibold">{entry.hours} hours</p>
                                             </div>
                                             {!entry.synced && (
                                                 <button onClick={() => sync(entry)}
-                                                    className="mt-3 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                                                    className="mt-3 w-full text-white py-2 rounded font-semibold"
+                                                    style={{backgroundColor: '#0c87c5'}}>
                                                     Sync to Airtable
                                                 </button>
                                             )}
@@ -297,55 +321,67 @@
             }
 
             return (
-                <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+                <div style={{minHeight: '100vh', backgroundColor: '#f0f0ec'}}>
                     <div className="max-w-md mx-auto p-4">
-                        <div className="bg-white rounded-lg shadow-lg p-6 mb-4">
+                        {/* Logo Header */}
+                        <div className="text-center mb-6 pt-4">
+                            <img 
+                                src="https://pbs.twimg.com/profile_images/1605616679449534465/fHFL-_QC_400x400.jpg" 
+                                alt="The Design LIVE" 
+                                className="w-24 h-24 mx-auto mb-3 rounded-2xl shadow-lg"
+                            />
+                            <h1 className="text-2xl font-bold" style={{color: '#091007'}}>Time Tracker</h1>
+                        </div>
+
+                        <div className="bg-white rounded-lg shadow-lg p-6 mb-4" style={{border: '2px solid #0c87c5'}}>
                             <div className="flex items-center justify-between mb-4">
-                                <h1 className="text-2xl font-bold">On-Site Timer</h1>
+                                <h2 className="text-xl font-bold" style={{color: '#091007'}}>On-Site Timer</h2>
                                 <div className="flex gap-2">
-                                    <button onClick={() => setShowHistory(true)} className="p-2 hover:bg-gray-100 rounded">
+                                    <button onClick={() => setShowHistory(true)} className="p-2 rounded" style={{color: '#0c87c5', ':hover': {backgroundColor: '#f0f0ec'}}}>
                                         <List size={24} />
                                     </button>
-                                    <button onClick={() => setShowSettings(true)} className="p-2 hover:bg-gray-100 rounded">
+                                    <button onClick={() => setShowSettings(true)} className="p-2 rounded" style={{color: '#0c87c5'}}>
                                         <Settings size={24} />
                                     </button>
                                 </div>
                             </div>
 
                             {activeJob ? (
-                                <div className="bg-blue-50 rounded-lg p-6 mb-4">
+                                <div className="rounded-lg p-6 mb-4" style={{backgroundColor: '#0c87c5'}}>
                                     <div className="text-center mb-4">
-                                        <p className="text-sm text-gray-600 mb-2">Active Job</p>
-                                        <p className="text-xl font-bold mb-4">{activeJob.name}</p>
-                                        <div className="flex items-center justify-center gap-2 text-4xl font-mono font-bold text-blue-600">
+                                        <p className="text-sm text-white opacity-90 mb-2">Active Job</p>
+                                        <p className="text-xl font-bold text-white mb-4">{activeJob.name}</p>
+                                        <div className="flex items-center justify-center gap-2 text-4xl font-mono font-bold text-white">
                                             <Clock size={32} />
                                             {formatTime(elapsedTime)}
                                         </div>
-                                        <p className="text-sm text-gray-600 mt-2">
+                                        <p className="text-sm text-white opacity-90 mt-2">
                                             Started: {new Date(startTime).toLocaleTimeString()}
                                         </p>
                                     </div>
                                     <button onClick={stop}
-                                        className="w-full bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-700 flex items-center justify-center gap-2 font-semibold">
+                                        className="w-full text-white py-3 px-6 rounded-lg flex items-center justify-center gap-2 font-semibold"
+                                        style={{backgroundColor: '#df1e1b'}}>
                                         <Square size={20} />
                                         Stop & Save
                                     </button>
                                 </div>
                             ) : (
                                 <div className="text-center py-8">
-                                    <Clock size={48} className="mx-auto text-gray-400 mb-2" />
-                                    <p className="text-gray-600">Select a job to start timing</p>
+                                    <Clock size={48} className="mx-auto mb-2" style={{color: '#0c87c5', opacity: 0.5}} />
+                                    <p style={{color: '#091007', opacity: 0.7}}>Select a job to start timing</p>
                                 </div>
                             )}
                         </div>
 
                         {!activeJob && (
-                            <div className="bg-white rounded-lg shadow-lg p-6">
-                                <h2 className="text-lg font-semibold mb-4">Select Job</h2>
+                            <div className="bg-white rounded-lg shadow-lg p-6" style={{border: '2px solid #0c87c5'}}>
+                                <h2 className="text-lg font-semibold mb-4" style={{color: '#091007'}}>Select Job</h2>
                                 <div className="space-y-3">
                                     {jobs.map((job) => (
                                         <button key={job.id} onClick={() => start(job)}
-                                            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-lg hover:from-blue-700 hover:to-indigo-700 flex items-center justify-between font-semibold shadow-md">
+                                            className="w-full text-white py-4 px-6 rounded-lg flex items-center justify-between font-semibold shadow-md transition-all hover:shadow-lg"
+                                            style={{backgroundColor: '#0c87c5'}}>
                                             <span>{job.name}</span>
                                             <Play size={20} />
                                         </button>
@@ -354,21 +390,21 @@
                             </div>
                         )}
 
-                        <div className="bg-white rounded-lg shadow-lg p-6 mt-4">
-                            <h3 className="text-sm font-semibold text-gray-600 mb-3">Today's Summary</h3>
+                        <div className="bg-white rounded-lg shadow-lg p-6 mt-4" style={{border: '2px solid #0c87c5'}}>
+                            <h3 className="text-sm font-semibold mb-3" style={{color: '#091007'}}>Today's Summary</h3>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="text-center">
-                                    <p className="text-2xl font-bold text-blue-600">
+                                    <p className="text-2xl font-bold" style={{color: '#0c87c5'}}>
                                         {timeEntries.filter(e => e.date === new Date().toLocaleDateString()).length}
                                     </p>
-                                    <p className="text-sm text-gray-600">Entries</p>
+                                    <p className="text-sm" style={{color: '#091007', opacity: 0.7}}>Entries</p>
                                 </div>
                                 <div className="text-center">
-                                    <p className="text-2xl font-bold text-green-600">
+                                    <p className="text-2xl font-bold" style={{color: '#df1e1b'}}>
                                         {timeEntries.filter(e => e.date === new Date().toLocaleDateString())
                                             .reduce((sum, e) => sum + e.hours, 0).toFixed(1)}
                                     </p>
-                                    <p className="text-sm text-gray-600">Hours</p>
+                                    <p className="text-sm" style={{color: '#091007', opacity: 0.7}}>Hours</p>
                                 </div>
                             </div>
                         </div>
